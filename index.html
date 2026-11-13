@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a36">
+    <meta name="description" content="FixCare ศูนย์บริการรับซ่อมเครื่องใช้ไฟฟ้าและอุปกรณ์ไอที แจ้งซ่อมง่าย ประเมินอาการเบื้องต้นฟรี">
+    <title>FixCare | แจ้งซ่อมง่าย ดูแลถึงบ้าน</title>
+    <style>
+        :root {
+            --navy: #102a36;
+            --navy-deep: #0b202a;
+            --teal: #17a69a;
+            --teal-dark: #10877f;
+            --mint: #e7f7f3;
+            --paper: #ffffff;
+            --canvas: #f5f8f8;
+            --ink: #19313b;
+            --muted: #64757b;
+            --line: #e2e9e9;
+            --font: "Leelawadee UI", "Noto Sans Thai", Tahoma, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        button, input, select, textarea { font: inherit; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        .container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+        .header {
+            position: sticky;
+            z-index: 10;
+            top: 0;
+            background: var(--navy);
+            color: #fff;
+            box-shadow: 0 4px 18px #0718201a;
+        }
+        .nav {
+            display: flex;
+            min-height: 76px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .brand { display: inline-flex; align-items: center; gap: 11px; }
+        .brand-icon {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--teal);
+            color: white;
+        }
+        .brand-icon svg { width: 24px; height: 24px; }
+        .brand-title { display: block; font-size: 1.12rem; font-weight: 900; letter-spacing: .03em; line-height: 1.1; }
+        .brand-caption { display: block; margin-top: 4px; color: #a9c1c6; font-size: .68rem; letter-spacing: .1em; }
+        .nav-links { display: flex; align-items: center; gap: 30px; color: #d3e1e3; font-size: .93rem; }
+        .nav-links > a:not(.button):hover { color: #74dfd1; }
+        .button {
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 0 21px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--teal);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background .2s, transform .2s, box-shadow .2s;
+        }
+        .button:hover { transform: translateY(-2px); background: var(--teal-dark); box-shadow: 0 8px 18px #17a69a33; }
+        .button svg { width: 18px; height: 18px; }
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            place-items: center;
+            border: 1px solid #ffffff35;
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding-block: 70px 78px;
+            background:
+                radial-gradient(ellipse at 86% 22%, #1c5660 0, transparent 34%),
+                linear-gradient(125deg, var(--navy-deep), var(--navy) 62%, #123946);
+            color: white;
+        }
+        .hero::after {
+            position: absolute;
+            right: -120px;
+            bottom: -240px;
+            width: 570px;
+            height: 570px;
+            border: 1px solid #ffffff0c;
+            border-radius: 50%;
+            box-shadow: 0 0 0 48px #ffffff08, 0 0 0 96px #ffffff06;
+            content: "";
+            pointer-events: none;
+        }
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 65px;
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 18px;
+            color: #69d7c8;
+            font-size: .82rem;
+            font-weight: 900;
+            letter-spacing: .08em;
+        }
+        .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 {
+            max-width: 610px;
+            margin-bottom: 18px;
+            font-size: clamp(2.6rem, 5.2vw, 4.35rem);
+            font-weight: 900;
+            letter-spacing: -.055em;
+            line-height: 1.22;
+        }
+        h1 span { color: #6de0d1; }
+        .hero-copy { max-width: 520px; margin-bottom: 28px; color: #c5d6d9; font-size: 1.03rem; line-height: 1.9; }
+        .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+        .button-light { border: 1px solid #ffffff45; background: #ffffff0d; }
+        .button-light:hover { background: #ffffff1b; }
+        .hero-benefits { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 34px; color: #d7e3e5; font-size: .87rem; }
+        .hero-benefits span { display: inline-flex; align-items: center; gap: 8px; }
+        .check { color: #70dfcb; font-weight: 900; }
+
+        .request-card {
+            padding: 28px;
+            border: 1px solid #ffffff1c;
+            border-radius: 20px;
+            background: #fff;
+            color: var(--ink);
+            box-shadow: 0 24px 70px #06141c59;
+        }
+        .request-card h2 { margin-bottom: 5px; font-size: 1.45rem; font-weight: 900; letter-spacing: -.03em; }
+        .request-intro { margin-bottom: 20px; color: var(--muted); font-size: .89rem; line-height: 1.65; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .field { min-width: 0; }
+        .field-full { grid-column: 1 / -1; }
+        .field label { display: block; margin-bottom: 6px; font-size: .84rem; font-weight: 800; }
+        .field input, .field select, .field textarea {
+            display: block;
+            width: 100%;
+            min-height: 45px;
+            padding: 10px 12px;
+            border: 1px solid #dce5e5;
+            border-radius: 8px;
+            outline: none;
+            background: #fff;
+            color: var(--ink);
+            font-size: .9rem;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .field textarea { min-height: 82px; resize: vertical; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px #17a69a20; }
+        .field input::placeholder, .field textarea::placeholder { color: #9aa8aa; }
+        .request-card .button { width: 100%; margin-top: 16px; }
+        .form-note { margin: 12px 0 0; color: #748287; font-size: .76rem; line-height: 1.6; text-align: center; }
+        .form-status { margin: 12px 0 0; color: #9a4f15; font-size: .85rem; line-height: 1.6; }
+
+        .trust-strip { border-bottom: 1px solid var(--line); background: #fff; }
+        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); padding-block: 24px; }
+        .trust-item { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 8px 16px; }
+        .trust-item + .trust-item { border-left: 1px solid var(--line); }
+        .trust-icon {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--mint);
+            color: var(--teal-dark);
+        }
+        .trust-icon svg { width: 22px; height: 22px; }
+        .trust-item strong { display: block; font-size: .93rem; }
+        .trust-item small { display: block; margin-top: 2px; color: var(--muted); font-size: .78rem; }
+
+        .section { padding-block: 86px; }
+        .section-soft { background: var(--canvas); }
+        .section-heading { max-width: 620px; margin: 0 auto 38px; text-align: center; }
+        .section-heading .eyebrow { margin-bottom: 12px; }
+        .section-heading h2, .about-copy h2 {
+            margin-bottom: 10px;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -.05em;
+            line-height: 1.25;
+        }
+        .section-heading > p:last-child { margin-bottom: 0; color: var(--muted); line-height: 1.8; }
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .service-card {
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #fff;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px #102a3610; }
+        .service-icon {
+            display: grid;
+            width: 52px;
+            height: 52px;
+            margin-bottom: 17px;
+            place-items: center;
+            border-radius: 15px;
+            background: var(--mint);
+            color: var(--teal-dark);
+        }
+        .service-icon svg { width: 27px; height: 27px; }
+        .service-card h3 { margin-bottom: 7px; font-size: 1.08rem; font-weight: 900; }
+        .service-card p { margin-bottom: 0; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+        .about-grid { display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: 68px; }
+        .about-visual {
+            position: relative;
+            display: grid;
+            min-height: 380px;
+            overflow: hidden;
+            place-items: center;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 50% 45%, #225b64 0, #163d49 40%, #102a36 78%);
+        }
+        .about-visual::before, .about-visual::after {
+            position: absolute;
+            width: 290px;
+            height: 290px;
+            border: 1px solid #ffffff19;
+            border-radius: 50%;
+            content: "";
+        }
+        .about-visual::after { width: 210px; height: 210px; }
+        .tool-illustration { position: relative; z-index: 1; width: 112px; height: 112px; color: #7ce0d3; }
+        .about-stamp {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            padding: 13px 16px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 8px 24px #06141c33;
+        }
+        .about-stamp strong { display: block; font-size: 1rem; }
+        .about-stamp small { color: var(--muted); font-size: .78rem; }
+        .about-copy > p:not(.eyebrow) { color: var(--muted); line-height: 1.9; }
+        .about-list { display: grid; gap: 13px; margin: 23px 0 27px; padding: 0; list-style: none; }
+        .about-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .94rem; font-weight: 700; }
+        .about-list .check { display: grid; width: 22px; height: 22px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--mint); }
+
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: step; }
+        .step { position: relative; padding: 25px; border: 1px solid var(--line); border-radius: 16px; background: #fff; counter-increment: step; }
+        .step-number {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 17px;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--navy);
+            color: #fff;
+            font-weight: 900;
+        }
+        .step-number::before { content: counter(step, decimal-leading-zero); }
+        .step h3 { margin-bottom: 7px; font-size: 1.05rem; font-weight: 900; }
+        .step p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+
+        .final-cta { padding-block: 60px; background: var(--navy); color: #fff; }
+        .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+        .cta-inner h2 { margin-bottom: 7px; font-size: clamp(1.6rem, 3.2vw, 2.35rem); font-weight: 900; letter-spacing: -.04em; }
+        .cta-inner p { margin: 0; color: #c0d0d3; }
+        .footer { padding-block: 24px; background: var(--navy-deep); color: #a9bdc1; font-size: .85rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .footer p { margin: 0; }
+        .footer .brand-caption { color: #829ba0; }
+
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .request-card { padding: 23px; }
+            .about-grid { gap: 36px; }
+        }
+        @media (max-width: 720px) {
+            .container { width: min(100% - 36px, 560px); }
+            .nav { min-height: 68px; }
+            .menu-toggle { display: grid; }
+            .nav-links {
+                position: absolute;
+                top: 67px;
+                right: 0;
+                left: 0;
+                display: none;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 24px 20px;
+                border-top: 1px solid #ffffff1a;
+                background: var(--navy);
+            }
+            .nav-links.open { display: flex; flex-direction: column; }
+            .nav-links > a:not(.button) { padding: 12px 0; }
+            .nav-links .button { margin-top: 8px; }
+            .hero { padding-block: 53px 60px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+            .hero-content { max-width: 570px; }
+            h1 { font-size: clamp(2.6rem, 11vw, 4rem); }
+            .hero-benefits { gap: 12px 18px; }
+            .trust-grid { grid-template-columns: 1fr; padding-block: 12px; }
+            .trust-item { justify-content: flex-start; padding: 12px 4px; }
+            .trust-item + .trust-item { border-top: 1px solid var(--line); border-left: 0; }
+            .section { padding-block: 66px; }
+            .service-grid, .steps { grid-template-columns: 1fr; gap: 14px; }
+            .service-card { padding: 21px; }
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .about-visual { min-height: 300px; }
+            .cta-inner { align-items: flex-start; flex-direction: column; }
+            .footer-inner { align-items: flex-start; flex-direction: column; }
+        }
+        @media (max-width: 430px) {
+            .container { width: calc(100% - 30px); }
+            .request-card { padding: 20px 17px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .field-full { grid-column: auto; }
+            .hero-actions { align-items: stretch; flex-direction: column; }
+            .hero-actions .button { width: 100%; }
+            .features { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="container nav" aria-label="เมนูหลัก">
+            <a class="brand" href="#home" aria-label="FixCare หน้าแรก">
+                <span class="brand-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l-3.1 3.1-3.2-3.2 3.3-2.9Z"/></svg>
+                </span>
+                <span><span class="brand-title">FixCare</span><span class="brand-caption">REPAIR SERVICE</span></span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+            <div class="nav-links" id="primary-navigation">
+                <a href="#services">บริการของเรา</a>
+                <a href="#how-it-works">ขั้นตอน</a>
+                <a href="#about">ทำไมต้อง FixCare</a>
+                <a class="button" href="#request">แจ้งซ่อมเลย <span aria-hidden="true">→</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> ซ่อมง่าย มั่นใจได้ทุกงาน</p>
+                    <h1>ของเสีย อย่าเพิ่งทิ้ง<br>ให้เราช่วย <span>ดูแล</span></h1>
+                    <p class="hero-copy">บริการซ่อมเครื่องใช้ไฟฟ้าและอุปกรณ์ไอที โดยช่างผู้ชำนาญ แจ้งอาการได้ง่าย ประเมินก่อนซ่อม และอัปเดตงานให้คุณสบายใจ</p>
+                    <div class="hero-actions">
+                        <a class="button" href="#request">แจ้งซ่อมออนไลน์ <span aria-hidden="true">→</span></a>
+                        <a class="button button-light" href="#services">ดูบริการของเรา</a>
+                    </div>
+                    <div class="hero-benefits">
+                        <span><b class="check">✓</b> ประเมินอาการเบื้องต้น</span>
+                        <span><b class="check">✓</b> แจ้งราคาก่อนซ่อม</span>
+                    </div>
+                </div>
+
+                <form class="request-card" id="request-form">
+                    <h2 id="request">แจ้งซ่อมกับเรา</h2>
+                    <p class="request-intro">กรอกข้อมูลเบื้องต้น ทีมงานจะใช้รายละเอียดนี้เพื่อประเมินประเภทงานซ่อม</p>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="customer-name">ชื่อผู้ติดต่อ <span aria-hidden="true">*</span></label>
+                            <input id="customer-name" name="name" type="text" autocomplete="name" placeholder="ชื่อของคุณ" required>
+                        </div>
+                        <div class="field">
+                            <label for="customer-phone">เบอร์โทรศัพท์ <span aria-hidden="true">*</span></label>
+                            <input id="customer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="08X-XXX-XXXX" pattern="[0-9]{9,10}" required>
+                        </div>
+                        <div class="field field-full">
+                            <label for="device-type">อุปกรณ์ที่ต้องการซ่อม <span aria-hidden="true">*</span></label>
+                            <select id="device-type" name="device" required>
+                                <option value="" selected disabled>เลือกประเภทอุปกรณ์</option>
+                                <option>เครื่องปรับอากาศ</option>
+                                <option>เครื่องซักผ้า / เครื่องอบผ้า</option>
+                                <option>ตู้เย็น / เครื่องใช้ไฟฟ้า</option>
+                                <option>คอมพิวเตอร์ / โน้ตบุ๊ก</option>
+                                <option>โทรศัพท์ / แท็บเล็ต</option>
+                                <option>อื่น ๆ</option>
+                            </select>
+                        </div>
+                        <div class="field field-full">
+                            <label for="problem">อาการเบื้องต้น</label>
+                            <textarea id="problem" name="problem" placeholder="เช่น เปิดไม่ติด มีเสียงดัง หรือแจ้งรหัส error"></textarea>
+                        </div>
+                    </div>
+                    <button class="button" type="submit">ส่งข้อมูลแจ้งซ่อม <span aria-hidden="true">→</span></button>
+                    <p class="form-note">แบบฟอร์มนี้เป็นตัวอย่าง ข้อมูลจะไม่ถูกส่งออกจากอุปกรณ์ของคุณ</p>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+                </form>
+            </div>
+        </section>
+
+        <section class="trust-strip" aria-label="จุดเด่นของบริการ">
+            <div class="container trust-grid">
+                <div class="trust-item">
+                    <span class="trust-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 7.7 7.5 9.5 4.3-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <span><strong>ช่างมีประสบการณ์</strong><small>ดูแลอุปกรณ์อย่างเหมาะสม</small></span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M17 7c0-1.7-2.2-3-5-3S7 5.3 7 7s2.2 3 5 3 5 1.3 5 3-2.2 3-5 3-5-1.3-5-3"/></svg>
+                    </span>
+                    <span><strong>แจ้งราคาก่อนซ่อม</strong><small>ตรวจสอบและตัดสินใจก่อนได้</small></span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l2.5 2.5"/><circle cx="12" cy="12" r="9"/></svg>
+                    </span>
+                    <span><strong>นัดหมายสะดวก</strong><small>แจ้งรายละเอียดได้ทุกเวลา</small></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-soft" id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> Our services</p>
+                    <h2>ซ่อมอะไรได้บ้าง?</h2>
+                    <p>แจ้งประเภทอุปกรณ์และอาการที่พบ ทีมงานจะช่วยแนะนำขั้นตอนถัดไปให้เหมาะกับงานของคุณ</p>
+                </div>
+                <div class="service-grid">
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M8 7h8M8 10h8M8 13h5"/><circle cx="16" cy="17" r="1"/></svg>
+                        </span>
+                        <h3>คอมพิวเตอร์ &amp; โน้ตบุ๊ก</h3>
+                        <p>ตรวจเช็กเครื่องช้า เปิดไม่ติด ปัญหาระบบ และอุปกรณ์ต่อพ่วง</p>
+                    </article>
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10 5h4M11 18.5h2"/></svg>
+                        </span>
+                        <h3>โทรศัพท์ &amp; แท็บเล็ต</h3>
+                        <p>ช่วยตรวจอาการหน้าจอ แบตเตอรี่ พอร์ตชาร์จ และปัญหาการใช้งาน</p>
+                    </article>
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 10v9M15 10v9"/><path d="M8 7.5h.01M11 7.5h.01"/></svg>
+                        </span>
+                        <h3>เครื่องใช้ไฟฟ้า</h3>
+                        <p>เครื่องซักผ้า ตู้เย็น และอุปกรณ์ไฟฟ้าภายในบ้านที่มีปัญหา</p>
+                    </article>
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a8 8 0 0 1 16 0"/><path d="M4 10v6h4v-5H4ZM20 10v6h-4v-5h4Z"/><path d="M16 19c-.8 1-2 1.5-4 1.5"/></svg>
+                        </span>
+                        <h3>เครื่องปรับอากาศ</h3>
+                        <p>ตรวจอาการแอร์ไม่เย็น น้ำหยด เสียงดัง หรือเปิดใช้งานไม่ได้</p>
+                    </article>
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4zM7 4h10v3M8 11h8M8 14h5"/><path d="M7 20v2M17 20v2"/></svg>
+                        </span>
+                        <h3>อุปกรณ์สำนักงาน</h3>
+                        <p>เครื่องพิมพ์และอุปกรณ์สำนักงาน ตรวจเช็กปัญหาการเชื่อมต่อและใช้งาน</p>
+                    </article>
+                    <article class="service-card">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2M8 3.8 6.5 2M16 3.8 17.5 2"/></svg>
+                        </span>
+                        <h3>อุปกรณ์อื่น ๆ</h3>
+                        <p>ไม่แน่ใจว่าเป็นงานประเภทไหน? ส่งรายละเอียดมาให้เราช่วยประเมินได้</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="container about-grid">
+                <div class="about-visual" role="img" aria-label="ภาพสัญลักษณ์เครื่องมือช่างและการซ่อมบำรุง">
+                    <svg class="tool-illustration" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M56 22a21 21 0 0 0-27 27L12 66a10 10 0 0 0 14 14l17-17a21 21 0 0 0 27-27L57 49 43 35l13-13Z"/>
+                        <path d="m22 70 8 8M67 65l15 15"/>
+                        <circle cx="82" cy="82" r="7"/>
+                    </svg>
+                    <span class="about-stamp"><strong>ดูแลทุกงานซ่อม</strong><small>ใส่ใจตั้งแต่ต้นจนจบ</small></span>
+                </div>
+                <div class="about-copy">
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> Why FixCare</p>
+                    <h2>ซ่อมอย่างเข้าใจ<br>สบายใจทุกขั้นตอน</h2>
+                    <p>เราเชื่อว่างานซ่อมที่ดีเริ่มจากการฟังอาการอย่างละเอียด อธิบายให้เข้าใจง่าย และให้คุณตัดสินใจก่อนเริ่มงานทุกครั้ง</p>
+                    <ul class="about-list">
+                        <li><span class="check">✓</span><span>ตรวจเช็กและอธิบายอาการก่อนดำเนินการ</span></li>
+                        <li><span class="check">✓</span><span>ประเมินค่าใช้จ่ายให้ทราบก่อนซ่อม</span></li>
+                        <li><span class="check">✓</span><span>แจ้งความคืบหน้าตามขั้นตอน</span></li>
+                    </ul>
+                    <a class="button" href="#request">เริ่มแจ้งซ่อม <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-soft" id="how-it-works">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> Simple steps</p>
+                    <h2>แจ้งซ่อมได้ใน 3 ขั้นตอน</h2>
+                    <p>เตรียมข้อมูลอุปกรณ์และอาการเบื้องต้น แล้วเริ่มแจ้งเรื่องได้เลย</p>
+                </div>
+                <div class="steps">
+                    <article class="step">
+                        <span class="step-number" aria-hidden="true"></span>
+                        <h3>ส่งรายละเอียดอุปกรณ์</h3>
+                        <p>กรอกชื่อ เบอร์ติดต่อ ประเภทอุปกรณ์ และอาการที่พบ</p>
+                    </article>
+                    <article class="step">
+                        <span class="step-number" aria-hidden="true"></span>
+                        <h3>รับคำแนะนำเบื้องต้น</h3>
+                        <p>ทีมงานสอบถามข้อมูลเพิ่มเติมและแนะนำแนวทางตรวจเช็ก</p>
+                    </article>
+                    <article class="step">
+                        <span class="step-number" aria-hidden="true"></span>
+                        <h3>ประเมินก่อนเริ่มซ่อม</h3>
+                        <p>ตรวจสอบอาการและแจ้งรายละเอียดค่าใช้จ่ายก่อนดำเนินงาน</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <div class="container cta-inner">
+                <div>
+                    <h2>มีอุปกรณ์ที่ต้องการให้ช่วยดูแล?</h2>
+                    <p>บอกอาการเบื้องต้น แล้วเริ่มต้นตรวจสอบไปด้วยกัน</p>
+                </div>
+                <a class="button" href="#request">แจ้งซ่อมตอนนี้ <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="#home" aria-label="FixCare หน้าแรก">
+                <span class="brand-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l-3.1 3.1-3.2-3.2 3.3-2.9Z"/></svg>
+                </span>
+                <span><span class="brand-title">FixCare</span><span class="brand-caption">REPAIR SERVICE</span></span>
+            </a>
+            <p>© 2026 FixCare Repair Service</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navigation = document.querySelector("#primary-navigation");
+        const requestForm = document.querySelector("#request-form");
+        const formStatus = document.querySelector("#form-status");
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+            menuToggle.setAttribute("aria-expanded", String(!isOpen));
+            menuToggle.setAttribute("aria-label", isOpen ? "เปิดเมนู" : "ปิดเมนู");
+            navigation.classList.toggle("open", !isOpen);
+        });
+
+        navigation.addEventListener("click", (event) => {
+            if (event.target.closest("a")) {
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "เปิดเมนู");
+                navigation.classList.remove("open");
+            }
+        });
+
+        requestForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (!requestForm.reportValidity()) return;
+            formStatus.hidden = false;
+            formStatus.textContent = "แบบฟอร์มตัวอย่าง: ข้อมูลยังไม่ได้ส่งไปยังร้าน เนื่องจากหน้านี้ยังไม่ได้เชื่อมต่อระบบรับแจ้งซ่อม";
+        });
+    </script>
+</body>
+</html>
