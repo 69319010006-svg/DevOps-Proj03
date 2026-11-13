@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#102a36">
+    <meta name="theme-color" content="#171717">
     <meta name="description" content="FixCare ศูนย์บริการรับซ่อมเครื่องใช้ไฟฟ้าและอุปกรณ์ไอที แจ้งซ่อมง่าย ประเมินอาการเบื้องต้นฟรี">
     <title>FixCare | แจ้งซ่อมง่าย ดูแลถึงบ้าน</title>
     <style>
         :root {
-            --navy: #102a36;
-            --navy-deep: #0b202a;
-            --teal: #17a69a;
-            --teal-dark: #10877f;
-            --mint: #e7f7f3;
+            --black: #171717;
+            --black-deep: #0b0b0b;
+            --gray-dark: #4a4a4a;
+            --gray-darker: #303030;
+            --gray-light: #eeeeee;
             --paper: #ffffff;
-            --canvas: #f5f8f8;
-            --ink: #19313b;
-            --muted: #64757b;
-            --line: #e2e9e9;
+            --canvas: #f5f5f5;
+            --ink: #1c1c1c;
+            --muted: #686868;
+            --line: #e3e3e3;
             --font: "Leelawadee UI", "Noto Sans Thai", Tahoma, sans-serif;
         }
 
@@ -39,9 +39,9 @@
             position: sticky;
             z-index: 10;
             top: 0;
-            background: var(--navy);
+            background: var(--black);
             color: #fff;
-            box-shadow: 0 4px 18px #0718201a;
+            box-shadow: 0 4px 18px #0000001a;
         }
         .nav {
             display: flex;
@@ -57,14 +57,14 @@
             height: 42px;
             place-items: center;
             border-radius: 13px;
-            background: var(--teal);
+            background: var(--gray-dark);
             color: white;
         }
         .brand-icon svg { width: 24px; height: 24px; }
         .brand-title { display: block; font-size: 1.12rem; font-weight: 900; letter-spacing: .03em; line-height: 1.1; }
-        .brand-caption { display: block; margin-top: 4px; color: #a9c1c6; font-size: .68rem; letter-spacing: .1em; }
-        .nav-links { display: flex; align-items: center; gap: 30px; color: #d3e1e3; font-size: .93rem; }
-        .nav-links > a:not(.button):hover { color: #74dfd1; }
+        .brand-caption { display: block; margin-top: 4px; color: #a9a9a9; font-size: .68rem; letter-spacing: .1em; }
+        .nav-links { display: flex; align-items: center; gap: 30px; color: #d3d3d3; font-size: .93rem; }
+        .nav-links > a:not(.button):hover { color: #ffffff; }
         .button {
             display: inline-flex;
             min-height: 48px;
@@ -74,13 +74,13 @@
             padding: 0 21px;
             border: 0;
             border-radius: 10px;
-            background: var(--teal);
+            background: var(--gray-dark);
             color: white;
             font-weight: 800;
             cursor: pointer;
             transition: background .2s, transform .2s, box-shadow .2s;
         }
-        .button:hover { transform: translateY(-2px); background: var(--teal-dark); box-shadow: 0 8px 18px #17a69a33; }
+        .button:hover { transform: translateY(-2px); background: var(--gray-darker); box-shadow: 0 8px 18px #00000026; }
         .button svg { width: 18px; height: 18px; }
         .menu-toggle {
             display: none;
@@ -100,8 +100,8 @@
             overflow: hidden;
             padding-block: 70px 78px;
             background:
-                radial-gradient(ellipse at 86% 22%, #1c5660 0, transparent 34%),
-                linear-gradient(125deg, var(--navy-deep), var(--navy) 62%, #123946);
+                radial-gradient(ellipse at 86% 22%, #454545 0, transparent 34%),
+                linear-gradient(125deg, var(--black-deep), var(--black) 62%, #292929);
             color: white;
         }
         .hero::after {
@@ -129,7 +129,7 @@
             align-items: center;
             gap: 8px;
             margin: 0 0 18px;
-            color: #69d7c8;
+            color: #d0d0d0;
             font-size: .82rem;
             font-weight: 900;
             letter-spacing: .08em;
@@ -144,14 +144,14 @@
             letter-spacing: -.055em;
             line-height: 1.22;
         }
-        h1 span { color: #6de0d1; }
-        .hero-copy { max-width: 520px; margin-bottom: 28px; color: #c5d6d9; font-size: 1.03rem; line-height: 1.9; }
+        h1 span { color: #c7c7c7; }
+        .hero-copy { max-width: 520px; margin-bottom: 28px; color: #c5c5c5; font-size: 1.03rem; line-height: 1.9; }
         .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
         .button-light { border: 1px solid #ffffff45; background: #ffffff0d; }
         .button-light:hover { background: #ffffff1b; }
-        .hero-benefits { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 34px; color: #d7e3e5; font-size: .87rem; }
+        .hero-benefits { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 34px; color: #d7d7d7; font-size: .87rem; }
         .hero-benefits span { display: inline-flex; align-items: center; gap: 8px; }
-        .check { color: #70dfcb; font-weight: 900; }
+        .check { color: #d0d0d0; font-weight: 900; }
 
         .request-card {
             padding: 28px;
@@ -159,7 +159,7 @@
             border-radius: 20px;
             background: #fff;
             color: var(--ink);
-            box-shadow: 0 24px 70px #06141c59;
+            box-shadow: 0 24px 70px #00000059;
         }
         .request-card h2 { margin-bottom: 5px; font-size: 1.45rem; font-weight: 900; letter-spacing: -.03em; }
         .request-intro { margin-bottom: 20px; color: var(--muted); font-size: .89rem; line-height: 1.65; }
@@ -172,7 +172,7 @@
             width: 100%;
             min-height: 45px;
             padding: 10px 12px;
-            border: 1px solid #dce5e5;
+            border: 1px solid #dddddd;
             border-radius: 8px;
             outline: none;
             background: #fff;
@@ -181,11 +181,11 @@
             transition: border-color .2s, box-shadow .2s;
         }
         .field textarea { min-height: 82px; resize: vertical; }
-        .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px #17a69a20; }
-        .field input::placeholder, .field textarea::placeholder { color: #9aa8aa; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gray-dark); box-shadow: 0 0 0 3px #00000012; }
+        .field input::placeholder, .field textarea::placeholder { color: #999999; }
         .request-card .button { width: 100%; margin-top: 16px; }
-        .form-note { margin: 12px 0 0; color: #748287; font-size: .76rem; line-height: 1.6; text-align: center; }
-        .form-status { margin: 12px 0 0; color: #9a4f15; font-size: .85rem; line-height: 1.6; }
+        .form-note { margin: 12px 0 0; color: #777777; font-size: .76rem; line-height: 1.6; text-align: center; }
+        .form-status { margin: 12px 0 0; color: #4a4a4a; font-size: .85rem; line-height: 1.6; }
 
         .trust-strip { border-bottom: 1px solid var(--line); background: #fff; }
         .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); padding-block: 24px; }
@@ -198,8 +198,8 @@
             flex: 0 0 auto;
             place-items: center;
             border-radius: 13px;
-            background: var(--mint);
-            color: var(--teal-dark);
+            background: var(--gray-light);
+            color: var(--gray-darker);
         }
         .trust-icon svg { width: 22px; height: 22px; }
         .trust-item strong { display: block; font-size: .93rem; }
@@ -225,7 +225,7 @@
             background: #fff;
             transition: transform .2s, box-shadow .2s;
         }
-        .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px #102a3610; }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px #00000010; }
         .service-icon {
             display: grid;
             width: 52px;
@@ -233,8 +233,8 @@
             margin-bottom: 17px;
             place-items: center;
             border-radius: 15px;
-            background: var(--mint);
-            color: var(--teal-dark);
+            background: var(--gray-light);
+            color: var(--gray-darker);
         }
         .service-icon svg { width: 27px; height: 27px; }
         .service-card h3 { margin-bottom: 7px; font-size: 1.08rem; font-weight: 900; }
@@ -249,7 +249,7 @@
             place-items: center;
             border-radius: 22px;
             background:
-                radial-gradient(circle at 50% 45%, #225b64 0, #163d49 40%, #102a36 78%);
+                radial-gradient(circle at 50% 45%, #555555 0, #303030 40%, #171717 78%);
         }
         .about-visual::before, .about-visual::after {
             position: absolute;
@@ -260,7 +260,7 @@
             content: "";
         }
         .about-visual::after { width: 210px; height: 210px; }
-        .tool-illustration { position: relative; z-index: 1; width: 112px; height: 112px; color: #7ce0d3; }
+        .tool-illustration { position: relative; z-index: 1; width: 112px; height: 112px; color: #e0e0e0; }
         .about-stamp {
             position: absolute;
             right: 18px;
@@ -268,14 +268,14 @@
             padding: 13px 16px;
             border-radius: 12px;
             background: #fff;
-            box-shadow: 0 8px 24px #06141c33;
+            box-shadow: 0 8px 24px #00000033;
         }
         .about-stamp strong { display: block; font-size: 1rem; }
         .about-stamp small { color: var(--muted); font-size: .78rem; }
         .about-copy > p:not(.eyebrow) { color: var(--muted); line-height: 1.9; }
         .about-list { display: grid; gap: 13px; margin: 23px 0 27px; padding: 0; list-style: none; }
         .about-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .94rem; font-weight: 700; }
-        .about-list .check { display: grid; width: 22px; height: 22px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--mint); }
+        .about-list .check { display: grid; width: 22px; height: 22px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--gray-light); }
 
         .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: step; }
         .step { position: relative; padding: 25px; border: 1px solid var(--line); border-radius: 16px; background: #fff; counter-increment: step; }
@@ -286,7 +286,7 @@
             margin-bottom: 17px;
             place-items: center;
             border-radius: 13px;
-            background: var(--navy);
+            background: var(--black);
             color: #fff;
             font-weight: 900;
         }
@@ -294,14 +294,14 @@
         .step h3 { margin-bottom: 7px; font-size: 1.05rem; font-weight: 900; }
         .step p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.75; }
 
-        .final-cta { padding-block: 60px; background: var(--navy); color: #fff; }
+        .final-cta { padding-block: 60px; background: var(--black); color: #fff; }
         .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
         .cta-inner h2 { margin-bottom: 7px; font-size: clamp(1.6rem, 3.2vw, 2.35rem); font-weight: 900; letter-spacing: -.04em; }
-        .cta-inner p { margin: 0; color: #c0d0d3; }
-        .footer { padding-block: 24px; background: var(--navy-deep); color: #a9bdc1; font-size: .85rem; }
+        .cta-inner p { margin: 0; color: #c0c0c0; }
+        .footer { padding-block: 24px; background: var(--black-deep); color: #a9a9a9; font-size: .85rem; }
         .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .footer p { margin: 0; }
-        .footer .brand-caption { color: #829ba0; }
+        .footer .brand-caption { color: #999999; }
 
         @media (max-width: 900px) {
             .hero-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -322,7 +322,7 @@
                 gap: 0;
                 padding: 10px 24px 20px;
                 border-top: 1px solid #ffffff1a;
-                background: var(--navy);
+                background: var(--black);
             }
             .nav-links.open { display: flex; flex-direction: column; }
             .nav-links > a:not(.button) { padding: 12px 0; }
